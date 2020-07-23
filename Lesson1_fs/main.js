@@ -1,5 +1,10 @@
-function calculate() {
-    return 10 + 20
+function calculate(a,b) {
+    return a + b
 }
 
-module.exports = calculate
+z=2+33;
+
+module.exports = {
+    calculate,
+    z
+}
