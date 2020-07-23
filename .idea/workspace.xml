@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a62ac56-f6a8-4a63-907a-8ae60205314f" name="Default Changelist" comment="" />
+    <list default="true" id="7a62ac56-f6a8-4a63-907a-8ae60205314f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +19,13 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Repeat-learn-nodeJS" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1f5b7J7dzRotxWT0aQkJGZw4oNW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -50,7 +58,7 @@
       <option name="presentableId" value="Default" />
       <updated>1595510732084</updated>
       <workItem from="1595510733370" duration="763000" />
-      <workItem from="1595511527285" duration="3453000" />
+      <workItem from="1595511527285" duration="3804000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1595512849260</created>
