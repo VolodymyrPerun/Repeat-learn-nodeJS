@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a62ac56-f6a8-4a63-907a-8ae60205314f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lesson1_fs/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/Lesson1_fs/app.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +34,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -58,7 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1595510732084</updated>
       <workItem from="1595510733370" duration="763000" />
-      <workItem from="1595511527285" duration="3804000" />
+      <workItem from="1595511527285" duration="4468000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1595512849260</created>
