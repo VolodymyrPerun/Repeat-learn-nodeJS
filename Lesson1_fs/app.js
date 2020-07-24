@@ -11,3 +11,7 @@ const fs = require('fs');
 const os = require('os');
 console.log(os.platform());
 
+fs.writeFile(path.join(__dirname, 'files', 'data.txt'), 'Hello, World! \n', err =>{
+    console.log(err)
+})
+
