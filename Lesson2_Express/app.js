@@ -2,7 +2,19 @@ const express = require('express');
 const expressBars = require('express-handlebars');
 const path = require('path');
 
-const app = express();
+const app = express()
+
+const users = [
+    {
+        name: 'Viktor',
+        age: 30
+    },
+    {
+        name: 'Jacob',
+        age: 18
+    }
+]
+
 
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.json())
@@ -18,8 +30,21 @@ app.set('views', path.join(__dirname, 'views'))
 
 
 app.get('/', (req, res) => {
-    res.render('main', {  name: 'Viktor', show: false})
+    res.render('main', {name: 'Viktor', show: false})
 });
+
+app.get('/register', (req, res) => {
+    res.render('register')
+})
+
+app.post('/reg', (req, res) => {
+    console.log(req.body);
+    res.end();
+})
+
+app.get('/users', (req, res) => {
+    res.render('users', {users})
+})
 
 app.get('/hello', (req, res) => {
     // res.write('Hello from')
