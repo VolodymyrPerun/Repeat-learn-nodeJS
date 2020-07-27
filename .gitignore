@@ -1,14 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
 
-Lesson2_Express/.idea/misc.xml
-*.xml
-Lesson2_Express/.idea/misc.xml
-Lesson2_Express/.idea/modules.xml
-Lesson2_Express/.idea/vcs.xml
-Lesson2_Express/node_modules/.bin/acorn
-*.cmd
-*.ps1
-Lesson2_Express/node_modules/.bin/atob
-*.xml
-Lesson2_Express/.idea/misc.xml
-Lesson2_Express/.idea/modules.xml
-Lesson2_Express/.idea/vcs.xml
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+*node_modules/*
