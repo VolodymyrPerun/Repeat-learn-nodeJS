@@ -1,7 +1,9 @@
 {
   "devDependencies": {
+    "@types/jest": "^23.3.12",
+    "express-handlebars": "^5.1.0",
     "jest": "^23.6.0",
-    "@types/jest": "^23.3.12"
+    "prettier": "^2.0.5"
   },
   "scripts": {
     "test": "jest"

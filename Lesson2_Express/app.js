@@ -1,11 +1,24 @@
 const express = require('express');
+const expressBars = require('express-handlebars');
+const path = require('path');
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'views')))
+app.use(express.json())
+app.use(express.urlencoded())
+
+app.engine('.hbs', expressBars({
+    extname: '.hbs',
+    defaultLayout: false
+}));
+
+app.set('view engine', '.hbs')
+app.set('views', path.join(__dirname, 'views'))
+
 
 app.get('/', (req, res) => {
-    // console.log(req);
-    res.end('Node Express')
+    res.render('main', {  name: 'Viktor', show: false})
 });
 
 app.get('/hello', (req, res) => {
