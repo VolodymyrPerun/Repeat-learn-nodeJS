@@ -1,12 +1,16 @@
+const {userService} = require('../../service')
+
 module.exports = {
 
     getAllUsers: async (req, res) => {
-        res.end('Get users')
+        let users = await userService.getUsers()
+        res.render('users', {users})
     },
 
     createUser: async (req, res) => {
         console.log(req.body);
-        res.end('Post users')
+        await userService.createUser(req.body)
+        res.redirect('/users')
     },
 
     updateUser: async (req, res) => {
