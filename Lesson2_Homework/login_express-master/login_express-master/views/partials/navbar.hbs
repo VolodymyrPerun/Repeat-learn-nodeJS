@@ -1,0 +1,21 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo">Shop</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {{#if isSignIn}}
+                  <li class="active"><a href="/signin">Sign in</a></li>
+                {{else}}<li><a href="/signin">Sign in</a></li>
+                {{/if}}
+
+            {{#if isLogIn}}
+                <li class="active"><a href="/logon">Log in</a></li>
+            {{else}}<li><a href="/logon">Log in</a></li>
+            {{/if}}
+
+            {{#if isUsers}}
+                <li class="active"><a href="/users">Log in</a></li>
+            {{else}}<li><a href="/users">Users</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>

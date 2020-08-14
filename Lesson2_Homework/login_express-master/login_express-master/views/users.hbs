@@ -1,0 +1,19 @@
+<h1>Users</h1>
+
+{{#if users.length}}
+        <ul class="collection">
+            {{#each users}}
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">person</i>
+                    <span class="title">{{first_name}}</span>
+                    <span class="title">{{last_name}}</span>
+                    <p>{{email}} <br>
+                        {{password}}
+                    </p>
+                </li>
+            {{/each}}
+        </ul>
+
+{{else}}
+    <p>No users</p>
+{{/if}}
