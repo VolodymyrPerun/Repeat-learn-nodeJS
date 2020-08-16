@@ -11,10 +11,12 @@ const {
 
 } = require('../../controllers')
 
+const {isProductExist, isProductValid} = require('../../middlewares')
+
 productRouter.get('/', getProducts)
-productRouter.get('/:id', getProduct)
-productRouter.post('/', createProduct)
-productRouter.put('/:id', updateProduct)
-productRouter.delete('/:id', deleteProduct)
+productRouter.get('/:id', isProductExist, getProduct)
+productRouter.post('/', isProductValid, createProduct)
+productRouter.put('/:id', isProductExist, isProductValid, updateProduct)
+productRouter.delete('/:id', isProductExist, deleteProduct)
 
 module.exports = productRouter

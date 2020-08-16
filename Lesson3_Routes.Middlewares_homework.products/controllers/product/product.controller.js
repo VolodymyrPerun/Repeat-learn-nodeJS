@@ -17,9 +17,7 @@ module.exports = {
     getProduct: async (req, res) => {
         const {id} = req.params
         const product = await Product.getById(id)
-        if (product) {
-            res.json(product)
-        } else res.json({product: false})
+        res.json(product)
 
     },
 
