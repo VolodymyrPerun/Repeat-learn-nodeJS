@@ -1,47 +1,16 @@
-const {readFile, appendFile} = require('fs');
-const path = require('path');
-const connect = require('./database');
+const db = require('../dataBase').getInstance();
 
-const usersPath = path.join(process.cwd(), 'users.txt');
+module.exports = {
+    getUsers: () => {
+        const UserModel = db.getModel('User');
 
-class UserService {
+        return UserModel.findAll({})
+    },
 
-    getUsers() {
-        let users = [];
+    createUser: (email, name, password) => {
+        const UserModel = db.getModel('User');
 
-        return new Promise((resolve, reject) => {
-            readFile(usersPath, (error, JSONUsers) => {
-                if (error) {
-                    reject('Cant read file (')
-                }
-
-                let JSONArr = JSONUsers.toString().split('\n');
-
-                JSONArr.forEach(jsonUser => {
-                    if (!jsonUser) {
-                        return
-                    }
-
-                    users.push(JSON.parse(jsonUser))
-                })
-
-                resolve(users);
-            })
-        })
+        return UserModel.create({email, name, password})
     }
 
-    createUser(user) {
-        const userToPush = JSON.stringify(user);
-
-        return new Promise((resolve, reject) => {
-            appendFile(usersPath, `\n${userToPush}`, (err) => {
-                if (err) {
-                    reject('Cant write user')
-                }
-                resolve()
-            })
-        })
-    }
-}
-
-module.exports = new UserService;
+};

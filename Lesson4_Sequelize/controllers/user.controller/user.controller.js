@@ -1,18 +1,25 @@
-const {getUsers, createUser} = require('../../service')
+const {getUsers, userService} = require("../../service");
+// const {userService} = require('../../service')
 
 
 module.exports = {
 
-    getAllUsers: async (req, res) => {
+    getUsers: async (req, res) => {
         const users = await getUsers()
         res.json(users)
     },
 
-    registerUser: async (req, res) => {
-        const user = req.body;
-        await createUser(user)
-        res.redirect('/users')
+    createUser: async (req, res) => {
+        try {
+            const {email, name, password} = req.body;
+            await userService.createUser(email, name, password);
+        } catch (e) {
+            res.json(e)
+        }
+
+        res.end()
     },
+
 
     updateUser: async (req, res) => {
         res.end('Put users')
