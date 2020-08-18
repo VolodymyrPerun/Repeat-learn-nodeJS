@@ -30,24 +30,24 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 
-app.post('/mysql', (req, res) => {
-
-    connect.query(`INSERT INTO user (name, email, password) VALUES ('${req.body.name}', '${req.body.email}', '${req.body.password}')`)
-
-    connect.query(`SELECT * FROM user`, (err, result) => {
-        res.json(result);
-    })
-})
-
-app.put('/mysql', (req, res) => {
-
-    connect.query("UPDATE user SET email = ?, name = ?, password = ? WHERE id = ?",
-        [req.body.email, req.body.name, req.body.password, req.body.id])
-
-            connect.query(`SELECT * FROM user`, (err, result) => {
-                res.json(result);
-            })
-    })
+// app.post('/mysql', (req, res) => {
+//
+//     connect.query(`INSERT INTO user (name, email, password) VALUES ('${req.body.name}', '${req.body.email}', '${req.body.password}')`)
+//
+//     connect.query(`SELECT * FROM user`, (err, result) => {
+//         res.json(result);
+//     })
+// })
+//
+// app.put('/mysql', (req, res) => {
+//
+//     connect.query("UPDATE user SET email = ?, name = ?, password = ? WHERE id = ?",
+//         [req.body.email, req.body.name, req.body.password, req.body.id])
+//
+//             connect.query(`SELECT * FROM user`, (err, result) => {
+//                 res.json(result);
+//             })
+//     })
 
     app.use('/users', userRouter);
     app.use('/products', productRouter);

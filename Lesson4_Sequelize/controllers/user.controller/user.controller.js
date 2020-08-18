@@ -1,11 +1,10 @@
-const {getUsers, userService} = require("../../service");
-// const {userService} = require('../../service')
+const {userService} = require("../../service");
 
 
 module.exports = {
 
     getUsers: async (req, res) => {
-        const users = await getUsers()
+        const users = await userService.getUsers()
         res.json(users)
     },
 

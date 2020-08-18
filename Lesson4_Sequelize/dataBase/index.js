@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const {resolve} = require('path');
 
 module.exports = (() => {
     let instance;
@@ -16,7 +17,7 @@ module.exports = (() => {
         function getModels() {
             fs.readdir(path.join(process.cwd(), 'dataBase', 'models'), (err, files) => {
                 files.forEach(file => {
-                    const [modelName] = file.split('.')[0];
+                    const [modelName] = file.split('.');
                     models[modelName] = client.import(resolve(`./dataBase/models/${modelName}`))
                 })
             })

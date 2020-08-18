@@ -19,11 +19,12 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false
             }
-            // ,
-            // create_at: {
-            //     type: DataTypes.DATE,
-            //     defaultValue: sequelize.fn('now')
-            // }
+            ,
+            create_at: {
+                type: DataTypes.DATE,
+                allowNull: false,
+                defaultValue: sequelize.fn('now')
+            }
         },
         {
             tableName: 'user',
