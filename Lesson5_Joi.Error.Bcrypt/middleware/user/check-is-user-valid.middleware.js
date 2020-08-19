@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
         if (password.length < 4) {
             throw new Error('Password is too short')
         }
-        if (password.length > 8) {
+        if (password.length > 9) {
             throw new Error('Password is too long')
         }
 

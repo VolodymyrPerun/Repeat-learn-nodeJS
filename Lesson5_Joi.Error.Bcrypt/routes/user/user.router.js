@@ -4,6 +4,7 @@ const {checkIsUserExist, checkUserValidity} = require('../../middleware')
 const {
     UserController: {
         createUser,
+        loginUser,
         getUsers,
         getUserById,
         updateUser,
@@ -12,7 +13,8 @@ const {
 } = require('../../controllers');
 
 
-userRouter.post('/', checkUserValidity, createUser);
+userRouter.post('/', createUser);
+userRouter.post('/auth', loginUser);
 userRouter.get('/', getUsers)
 userRouter.get('/:userId', checkIsUserExist, getUserById)
 userRouter.put('/:userId', checkIsUserExist, checkUserValidity, updateUser)

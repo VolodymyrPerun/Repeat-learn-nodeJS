@@ -15,10 +15,18 @@ module.exports = {
         return UserModel.findByPk(userId)
     },
 
-    createUser: (email, name, password) => {
+    createUser: (user) => {
         const UserModel = db.getModel(USER);
 
-        return UserModel.create({email, name, password})
+        return UserModel.create(user)
+    },
+
+    getUserByParams: (params) => {
+        const UserModel = db.getModel(USER);
+
+        return UserModel.findOne({
+            where: params
+        })
     },
 
     updateUser: (userId, user) => {
