@@ -2,9 +2,9 @@ module.exports = (req, res, next) => {
     try {
         const {name, age, email, password} = req.body
 
-        // console.log('*****************')
-        // console.log(name, age, email, password)
-        // console.log('*****************')
+        console.log('*****************')
+        console.log(name, age, email, password)
+        console.log('*****************')
 
         if (!name || !age || !email || !password) {
             throw new Error('user is not valid')
@@ -12,10 +12,10 @@ module.exports = (req, res, next) => {
         if (age > 150 || age < 1) {
             throw new Error('Age is out of range')
         }
-        if (password.length < 4) {
+        if (!(password.length > 4)) {
             throw new Error('Password is too short')
         }
-        if (password.length > 9) {
+        if (!(password.length < 9)) {
             throw new Error('Password is too long')
         }
 

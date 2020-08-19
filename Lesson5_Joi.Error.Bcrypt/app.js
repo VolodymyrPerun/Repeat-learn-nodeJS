@@ -30,33 +30,22 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 
-// app.post('/mysql', (req, res) => {
-//
-//     connect.query(`INSERT INTO user (name, email, password) VALUES ('${req.body.name}', '${req.body.email}', '${req.body.password}')`)
-//
-//     connect.query(`SELECT * FROM user`, (err, result) => {
-//         res.json(result);
-//     })
-// })
-//
-// app.put('/mysql', (req, res) => {
-//
-//     connect.query("UPDATE user SET email = ?, name = ?, password = ? WHERE id = ?",
-//         [req.body.email, req.body.name, req.body.password, req.body.id])
-//
-//             connect.query(`SELECT * FROM user`, (err, result) => {
-//                 res.json(result);
-//             })
-//     })
 
-    app.use('/users', userRouter);
-    app.use('/products', productRouter);
+app.use('/users', userRouter);
+app.use('/products', productRouter);
 
-
-    app.listen(5000, (err) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Listen 5000...');
-        }
+app.use('/*', (err, req, res, next) => {
+    res.status(err.status || 400).json({
+        message: err.message,
+        code: err.customCode
     })
+});
+
+
+app.listen(5000, (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('Listen 5000...');
+    }
+})
