@@ -2,9 +2,9 @@ module.exports = (req, res, next) => {
     try {
         const {name, age, email, password} = req.body
 
-        console.log('*****************')
-        console.log(name, age, email, password)
-        console.log('*****************')
+        // console.log('*****************')
+        // console.log(name, age, email, password)
+        // console.log('*****************')
 
         if (!name || !age || !email || !password) {
             throw new Error('user is not valid')
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
         next();
 
     } catch (e) {
-        res.render('error', {message: e.message})
+        res.json('error', {message: e.message})
     }
 
 }

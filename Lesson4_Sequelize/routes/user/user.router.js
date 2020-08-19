@@ -1,23 +1,21 @@
 const userRouter = require('express').Router();
+const {checkIsUserExist, checkUserValidity} = require('../../middleware')
 
 const {
     UserController: {
         createUser,
         getUsers,
+        getUserById,
         updateUser,
-        deleteUser
+        deleteUserByParams
     }
 } = require('../../controllers');
 
-const checkUserValidity = require('../../middleware/user/check-is-user-valid.middleware')
 
-userRouter.post('/',
-    // checkUserValidity,
-    createUser);
-userRouter.get('/',
-    // checkUserValidity,
-    getUsers)
-userRouter.put('/', checkUserValidity, updateUser)
-userRouter.delete('/:name', checkUserValidity, deleteUser)
+userRouter.post('/', checkUserValidity, createUser);
+userRouter.get('/', getUsers)
+userRouter.get('/:userId', checkIsUserExist, getUserById)
+userRouter.put('/:userId', checkIsUserExist, checkUserValidity, updateUser)
+userRouter.delete('/:userId', checkIsUserExist, deleteUserByParams)
 
 module.exports = userRouter
