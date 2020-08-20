@@ -13,7 +13,7 @@ const {
 } = require('../../controllers');
 
 
-userRouter.post('/',checkUserValidity, createUser);
+userRouter.post('/', checkUserValidity, createUser);
 userRouter.post('/auth', loginUser);
 userRouter.get('/', getUsers)
 userRouter.get('/:userId', checkIsUserExist, getUserById)

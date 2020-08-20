@@ -1,28 +1,21 @@
+const Joi = require('joi');
+
+const userValidationSchema = require('../../validators');
+const {ErrorHandler} = require('../../error');
+
 module.exports = (req, res, next) => {
     try {
-        const {name, age, email, password} = req.body
+        const user = req.body;
 
-        console.log('*****************')
-        console.log(name, age, email, password)
-        console.log('*****************')
+        const {error} = Joi.validate(user, userValidationSchema)
 
-        if (!name || !age || !email || !password) {
-            throw new Error('user is not valid')
-        }
-        if (age > 150 || age < 1) {
-            throw new Error('Age is out of range')
-        }
-        if (!(password.length > 4)) {
-            throw new Error('Password is too short')
-        }
-        if (!(password.length < 9)) {
-            throw new Error('Password is too long')
+        if (error) {
+            return next(new ErrorHandler(error.details[0].message, 400))
         }
 
         next();
 
     } catch (e) {
-        res.json('error', {message: e.message})
+        res.status(400).json(e.message)
     }
-
 }

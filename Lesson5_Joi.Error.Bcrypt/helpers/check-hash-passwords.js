@@ -8,6 +8,6 @@ module.exports = async (hashedPassword, password) => {
     console.log('*************************************');
 
     if (!isPasswordsEquals) {
-        throw new Error('User is not exist');
+        throw new Error('user is not exist');
     }
 }

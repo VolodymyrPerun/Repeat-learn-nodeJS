@@ -31,13 +31,10 @@ module.exports = {
 
     createUser: async (req, res) => {
         try {
-
             const user = req.body;
-            user.password = await hashPassword(user.password)
+            user.password = await hashPassword(user.password);
 
             await userService.createUser(user);
-            res.sendStatus(201)
-
         } catch (e) {
             res.json(e)
         }
@@ -53,7 +50,7 @@ module.exports = {
             const user = await userService.getUserByParams({email});
 
             if (!user) {
-                return next(new ErrorHandler('User is not found', 404, 4041));
+                return next(new ErrorHandler('user is not found', 404, 4041));
             }
 
             await checkHashPassword(user.password, password);

@@ -35,9 +35,12 @@ app.use('/users', userRouter);
 app.use('/products', productRouter);
 
 app.use('/*', (err, req, res, next) => {
-    res.status(err.status || 400).json({
-        message: err.message,
-        code: err.customCode
+    res
+        .status(err.status || 400)
+        .json({
+            status: err.status,
+            message: err.message || 'Unknown Error',
+            code: err.customCode
     })
 });
 
