@@ -9,6 +9,11 @@ module.exports = {
 
         try {
             const users = await userService.getUsers()
+
+            console.log('*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*');
+            console.log(' you have ' + users.length + ' users in database');
+            console.log('*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*');
+
             res.json(users)
 
         } catch (e) {
@@ -39,7 +44,7 @@ module.exports = {
             res.json(e)
         }
 
-        res.end()
+        res.end('user created')
     },
 
     loginUser: async (req, res, next) => {
@@ -70,7 +75,7 @@ module.exports = {
         try {
             const {userId} = req.params
             const user = req.body
-
+            user.password = await hashPassword(user.password);
             const {isUpdate} = await userService.updateUser(userId, user)
 
             isUpdate ? res.sendStatus(200) : res.json({update: false})
