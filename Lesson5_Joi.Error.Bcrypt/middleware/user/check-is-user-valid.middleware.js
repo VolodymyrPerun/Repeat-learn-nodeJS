@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
-const userValidationSchema = require('../../validators');
-const {ErrorHandler} = require('../../error');
+const userValidationSchema = require('../../validators/user/new-user.validator');
+const ErrorHandler = require('../../error/ErrorHandler');
 
 module.exports = (req, res, next) => {
     try {
@@ -16,6 +16,6 @@ module.exports = (req, res, next) => {
         next();
 
     } catch (e) {
-        res.status(400).json(e.message)
+        res.render('error', {message: e.message})
     }
 }
