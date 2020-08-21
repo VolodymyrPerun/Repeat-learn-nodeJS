@@ -1,7 +1,7 @@
 const {authService, userService} = require("../../service");
-const {hashPassword, checkHashPassword} = require('../../helpers')
+const {hashPassword, checkHashPassword, token_generator} = require('../../helpers')
 const ErrorHandler = require("../../error/ErrorHandler")
-const {token_generator} = require("../../helpers")
+const {headersEnum: {AUTHORIZATION}} = require("../../constants")
 
 
 module.exports = {
@@ -25,6 +25,13 @@ module.exports = {
         } catch (e) {
             next(e)
         }
+    },
+
+    logoutUser: async (req, res) => {
+
+            const access_token = req.get(AUTHORIZATION)
+            await authService.deleteTokenByParams({access_token})
+
     },
 
 

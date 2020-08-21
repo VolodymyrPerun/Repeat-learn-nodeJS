@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
-            accessToken: {
+            access_token: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            refreshToken: {
+            refresh_token: {
                 type: DataTypes.STRING,
                 allowNull: false
             },

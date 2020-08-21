@@ -55,7 +55,7 @@ module.exports = {
             const user = await userService.getUserByParams({email});
 
             if (!user) {
-                return next(new ErrorHandler('user is not found', 404, 4041));
+                return next(new ErrorHandler('User is not found', 404, 4041));
             }
 
             await checkHashPassword(user.password, password);
