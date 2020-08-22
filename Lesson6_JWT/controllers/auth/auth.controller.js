@@ -1,7 +1,10 @@
-const {authService, userService} = require("../../service");
-const {hashPassword, checkHashPassword, token_generator} = require('../../helpers')
-const ErrorHandler = require("../../error/ErrorHandler")
-const {headersEnum: {AUTHORIZATION}} = require("../../constants")
+const Joi = require('joi');
+
+const {updateUserValidatorSchema} = require("../../validators");
+const {requestHeadersEnum: {AUTHORIZATION}, responseStatusCodesEnum: {BAD_REQUEST}} = require('../../constants')
+const {token_generator, checkHashPassword} = require('../../helpers')
+const {ErrorHandler} = require('../../error')
+const {authService, userService} = require('../../service')
 
 
 module.exports = {
@@ -9,13 +12,18 @@ module.exports = {
     loginUser: async (req, res, next) => {
         try {
             const {email, password} = req.body;
+
+            const {error} = Joi.validate({email, password}, updateUserValidatorSchema);
+
+            if (error) return next(new ErrorHandler(error.details[0].message, BAD_REQUEST, 4041));
+
             const user = await userService.getUserByParams({email});
 
             if (!user) {
-                return next(new ErrorHandler('Unable to find user', 404, 4041));
+                return next(new ErrorHandler(new ErrorHandler(BAD_REQUEST.message, 404, 4041)));
             }
 
-            await checkHashPassword(user.password, password);
+            await checkHashPassword(password, user.password);
 
             const tokens = token_generator();
 
@@ -29,13 +37,14 @@ module.exports = {
 
     logoutUser: async (req, res) => {
 
-            const access_token = req.get(AUTHORIZATION)
-            await authService.deleteTokenByParams({access_token})
+        const access_token = req.get(AUTHORIZATION)
+        await authService.deleteTokenByParams({access_token})
 
+        res.status(200)
     },
 
 
-    getTokenByParams: async (req, res) => {
+    getTokensByParams: async (req, res) => {
 
         try {
             const user = req.user
@@ -50,7 +59,7 @@ module.exports = {
     createTokenPair: async (req, res) => {
         try {
             const user = req.body;
-            user.password = await hashPassword(user.password);
+            user.password = await checkHashPassword(user.password);
 
             await authService.createTokenPair(user);
         } catch (e) {

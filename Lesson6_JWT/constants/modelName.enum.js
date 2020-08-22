@@ -1,5 +1,5 @@
 module.exports = {
     USER: 'User',
-    PRODUCT: 'Product',
+    // PRODUCT: 'Product',
     AUTH_TOKEN: 'AuthToken'
 }
