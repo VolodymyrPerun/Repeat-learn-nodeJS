@@ -1,27 +1,30 @@
 const jwt = require('jsonwebtoken');
 
 const {
-    wordsEnum: {JWT_SECRET},
-    responseStatusCodesEnum
+    tokensEnum: {JWT_SECRET},
+    requestHeadersEnum: {AUTHORIZATION},
+    responseStatusCodesEnum: {UNAUTHORIZED, BAD_REQUEST},
+    responseCustomError: {NOT_VALID, NOT_VALID_TOKEN}
+
 } = require('../../constants');
 const {authService} = require('../../service');
-const {ErrorHandler, error} = require('../../error');
+const {ErrorHandler} = require('../../error');
 
 
 module.exports = async (req, res, next) => {
     try {
-        const token = req.get('Authorization');
+        const token = req.get(AUTHORIZATION);
 
         if (!token) {
-            return next(new ErrorHandler('No token', 400, 4002));
+            return next(new ErrorHandler(NOT_VALID.message, BAD_REQUEST, NOT_VALID.customCode));
         }
 
         jwt.verify(token, JWT_SECRET, err => {
             if (err) {
                 return next(new ErrorHandler(
-                    error.NOT_VALID_TOKEN.message,
-                    responseStatusCodesEnum.UNAUTHORIZED,
-                    error.NOT_VALID_TOKEN.code
+                    NOT_VALID_TOKEN.message,
+                    UNAUTHORIZED,
+                    NOT_VALID_TOKEN.code
                 ));
             }
         });
@@ -30,9 +33,9 @@ module.exports = async (req, res, next) => {
 
         if (!tokensFromDB) {
             return next(new ErrorHandler(
-                error.NOT_VALID_TOKEN.message,
-                responseStatusCodesEnum.UNAUTHORIZED,
-                error.NOT_VALID_TOKEN.code
+                NOT_VALID_TOKEN.message,
+                UNAUTHORIZED,
+                NOT_VALID_TOKEN.code
             ));
         }
 

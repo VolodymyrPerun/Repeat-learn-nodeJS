@@ -1,8 +1,12 @@
 const Joi = require('joi');
 
 const {updateUserValidatorSchema} = require("../../validators");
-const {requestHeadersEnum: {AUTHORIZATION}, responseStatusCodesEnum: {BAD_REQUEST}} = require('../../constants')
-const {token_generator, checkHashPassword} = require('../../helpers')
+const {
+    requestHeadersEnum: {AUTHORIZATION},
+    responseStatusCodesEnum: {BAD_REQUEST, NOT_FOUND: NOT_FOUND_CODE, OK},
+    responseCustomError: {NOT_VALID, NOT_FOUND}
+} = require('../../constants')
+const {tokenGeneratorHelpers, checkHashPasswordHelpers} = require('../../helpers')
 const {ErrorHandler} = require('../../error')
 const {authService, userService} = require('../../service')
 
@@ -15,17 +19,17 @@ module.exports = {
 
             const {error} = Joi.validate({email, password}, updateUserValidatorSchema);
 
-            if (error) return next(new ErrorHandler(error.details[0].message, BAD_REQUEST, 4041));
+            if (error) return next(new ErrorHandler(error.details[0].message, BAD_REQUEST, NOT_VALID.customCode));
 
             const user = await userService.getUserByParams({email});
 
             if (!user) {
-                return next(new ErrorHandler(new ErrorHandler(BAD_REQUEST.message, 404, 4041)));
+                return next(new ErrorHandler(new ErrorHandler(NOT_FOUND.message, NOT_FOUND_CODE, NOT_FOUND.customCode)));
             }
 
-            await checkHashPassword(password, user.password);
+            await checkHashPasswordHelpers(password, user.password);
 
-            const tokens = token_generator();
+            const tokens = tokenGeneratorHelpers();
 
             await authService.createTokenPair({...tokens, userId: user.userId});
 
@@ -35,12 +39,15 @@ module.exports = {
         }
     },
 
-    logoutUser: async (req, res) => {
+    logoutUser: async (req, res, next) => {
+        try {
+            const access_token = req.get(AUTHORIZATION)
+            await authService.deleteTokenByParams({access_token})
 
-        const access_token = req.get(AUTHORIZATION)
-        await authService.deleteTokenByParams({access_token})
-
-        res.status(200)
+            res.sendStatus(OK)
+        } catch (e) {
+            next(e)
+        }
     },
 
 
@@ -59,7 +66,7 @@ module.exports = {
     createTokenPair: async (req, res) => {
         try {
             const user = req.body;
-            user.password = await checkHashPassword(user.password);
+            user.password = await checkHashPasswordHelpers(user.password);
 
             await authService.createTokenPair(user);
         } catch (e) {

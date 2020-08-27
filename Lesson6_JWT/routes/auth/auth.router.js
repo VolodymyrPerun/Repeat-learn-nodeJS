@@ -1,11 +1,11 @@
 const authRouter = require('express').Router();
 
-const {checkAccessToken} = require("../../middleware");
+const {checkAccessTokenMiddleware} = require("../../middleware");
 const {AuthController: {loginUser, logoutUser}} = require('../../controllers')
 
 
 
-authRouter.post('/',checkAccessToken,  loginUser);
-authRouter.post('/logout',checkAccessToken, logoutUser);
+authRouter.post('/',checkAccessTokenMiddleware,  loginUser);
+authRouter.post('/logout',checkAccessTokenMiddleware, logoutUser);
 
 module.exports = authRouter

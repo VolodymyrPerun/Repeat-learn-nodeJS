@@ -1,8 +1,8 @@
 const userRouter = require('express').Router();
 const {
-    checkIsUserExist,
-    checkUserValidity,
-    checkUserValidityIfUpdate
+    checkIsUserExistMiddleware,
+    checkUserValidityMiddleware,
+    checkUserValidityIfUpdateMiddleware
 }
     = require('../../middleware')
 
@@ -18,10 +18,10 @@ const {
 } = require('../../controllers');
 
 
-userRouter.post('/', checkUserValidity, createUser);
+userRouter.post('/register', checkUserValidityMiddleware, createUser);
 userRouter.get('/', getUsers)
-userRouter.get('/:userId', checkIsUserExist, getUserById)
-userRouter.put('/:userId', checkIsUserExist, checkUserValidityIfUpdate, updateUser)
-userRouter.delete('/:userId', checkIsUserExist, deleteUserByParams)
+userRouter.get('/:userId', checkIsUserExistMiddleware, getUserById)
+userRouter.put('/:userId', checkIsUserExistMiddleware, checkUserValidityIfUpdateMiddleware, updateUser)
+userRouter.delete('/:userId', checkIsUserExistMiddleware, deleteUserByParams)
 
 module.exports = userRouter

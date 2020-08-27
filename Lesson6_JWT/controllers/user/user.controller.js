@@ -1,5 +1,5 @@
 const {userService} = require("../../service");
-const {hashPassword, checkHashPassword} = require('../../helpers')
+const {hashPasswordHelpers, checkHashPasswordHelpers} = require('../../helpers')
 const ErrorHandler = require("../../error/ErrorHandler")
 
 
@@ -37,7 +37,7 @@ module.exports = {
     createUser: async (req, res) => {
         try {
             const user = req.body;
-            user.password = await hashPassword(user.password);
+            user.password = await hashPasswordHelpers(user.password);
 
             await userService.createUser(user);
         } catch (e) {
@@ -58,7 +58,7 @@ module.exports = {
                 return next(new ErrorHandler('User is not found', 404, 4041));
             }
 
-            await checkHashPassword(user.password, password);
+            await checkHashPasswordHelpers(user.password, password);
 
             res.json(user);
 
@@ -75,7 +75,7 @@ module.exports = {
         try {
             const {userId} = req.params
             const user = req.body
-            user.password = await hashPassword(user.password);
+            user.password = await hashPasswordHelpers(user.password);
             const {isUpdate} = await userService.updateUser(userId, user)
 
             isUpdate ? res.sendStatus(200) : res.json({update: false})
