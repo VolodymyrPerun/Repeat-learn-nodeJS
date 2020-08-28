@@ -63,21 +63,21 @@ module.exports = {
 
     },
 
-    createTokenPair: async (req, res) => {
+    createTokenPair: async (req, res, next) => {
         try {
             const user = req.body;
             user.password = await checkHashPasswordHelpers(user.password);
 
             await authService.createTokenPair(user);
         } catch (e) {
-            res.json(e)
+            next(e)
         }
 
         res.end()
     },
 
 
-    deleteTokenByParams: async (req, res) => {
+    deleteTokenByParams: async (req, res, next) => {
         try {
             const {userId} = req.params
 
@@ -85,7 +85,32 @@ module.exports = {
 
             isDeleted ? res.sendStatus(204) : res.json({deleted: false})
         } catch (e) {
-            res.json(e)
+            next(e)
+        }
+
+    },
+
+
+    refreshToken: async (req, res, next) => {
+        try {
+
+            const refresh_token = req.get(AUTHORIZATION)
+            const userId = req.userId
+
+            const user = await userService.getUserById(userId)
+
+            if (!user) {
+                return next(new ErrorHandler(new ErrorHandler(NOT_FOUND.message, NOT_FOUND_CODE, NOT_FOUND.customCode)))
+            }
+
+            const tokens = tokenGeneratorHelpers()
+
+            await authService.deleteTokenByParams({refresh_token})
+            await authService.createTokenPair({...tokens, userId: user.userId})
+
+
+        } catch (e) {
+            next(e)
         }
 
     }
