@@ -108,7 +108,7 @@ module.exports = {
             await authService.deleteTokenByParams({refresh_token})
             await authService.createTokenPair({...tokens, userId: user.userId})
 
-
+            res.json(tokens)
         } catch (e) {
             next(e)
         }

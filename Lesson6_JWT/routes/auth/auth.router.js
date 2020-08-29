@@ -1,12 +1,12 @@
 const authRouter = require('express').Router();
 
-const {checkAccessTokenMiddleware} = require("../../middleware");
+const {checkAccessTokenMiddleware, checkRefreshTokenMiddleware} = require("../../middleware");
 const {AuthController: {loginUser, logoutUser, refreshToken}} = require('../../controllers')
 
 
 
-authRouter.post('/',checkAccessTokenMiddleware,  loginUser);
+authRouter.post('/', loginUser);
 authRouter.post('/logout',checkAccessTokenMiddleware, logoutUser);
-authRouter.post('/refresh', refreshToken);
+authRouter.post('/refresh',checkRefreshTokenMiddleware, refreshToken);
 
 module.exports = authRouter

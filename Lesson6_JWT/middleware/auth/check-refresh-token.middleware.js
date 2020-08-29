@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const {
-    tokensEnum: {JWT_SECRET},
+    tokensEnum: {JWT_REFRESH_SECRET},
     requestHeadersEnum: {AUTHORIZATION},
     responseStatusCodesEnum: {UNAUTHORIZED, BAD_REQUEST},
     responseCustomError: {NOT_VALID, NOT_VALID_TOKEN}
@@ -13,13 +13,13 @@ const {ErrorHandler} = require('../../error');
 
 module.exports = async (req, res, next) => {
     try {
-        const token = req.get(AUTHORIZATION);
+        const refreshedToken = req.get(AUTHORIZATION);
 
-        if (!token) {
+        if (!refreshedToken) {
             return next(new ErrorHandler(NOT_VALID.message, BAD_REQUEST, NOT_VALID.customCode));
         }
 
-        jwt.verify(token, JWT_SECRET, err => {
+        jwt.verify(refreshedToken, JWT_REFRESH_SECRET, err => {
             if (err) {
                 return next(new ErrorHandler(
                     NOT_VALID_TOKEN.message,
@@ -29,7 +29,7 @@ module.exports = async (req, res, next) => {
             }
         });
 
-        const tokensFromDB = await authService.getTokensByParams({access_token: token})
+        const tokensFromDB = await authService.getTokensByParams({refresh_token: refreshedToken})
 
         if (!tokensFromDB) {
             return next(new ErrorHandler(
