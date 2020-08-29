@@ -16,7 +16,7 @@ module.exports = {
     ROOT_EMAIL_LOGIN: process.env.ROOT_EMAIL_LOGIN || 'misterbin700007@gmail.com',
     ROOT_EMAIL_PASSWORD: process.env.ROOT_EMAIL_PASSWORD || '700007misterbin700007',
 
-    // SITE,
+     SITE: process.env.SITE || 'site.com',
 
     FRONT_END_URL: process.env.FRONT_END_URL || 'http://localhost:3000'
 }
