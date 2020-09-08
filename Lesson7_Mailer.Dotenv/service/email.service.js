@@ -1,13 +1,14 @@
 const nodemailer = require('nodemailer');
 const EmailTemplates = require('email-templates')
 const path = require('path');
-const htmlTemplate = require('../email-templates')
-const {ROOT_EMAIL_LOGIN, ROOT_EMAIL_PASSWORD, ROOT_EMAIL_SERVICE} = require('../config')
 
-const transporter = nodemailer.createTransport({
+const {ROOT_EMAIL_LOGIN, ROOT_EMAIL_PASSWORD, ROOT_EMAIL_SERVICE, SITE} = require('../config')
+const htmlTemplates = require('../email-templates')
+
+const mailTransport = nodemailer.createTransport({
     service: ROOT_EMAIL_SERVICE,
-    // host: 'smpt.el.com'
-    port: 387,
+    // // host: 'smpt.el.com'
+    // port: 387,
     auth: {
         user: ROOT_EMAIL_LOGIN,
         pass: ROOT_EMAIL_PASSWORD
@@ -17,7 +18,7 @@ const transporter = nodemailer.createTransport({
 const emailTemplates = new EmailTemplates({
     message: null,
     views: {
-        root: path.join(process.cwd(), 'email-templates'),
+        root: path.join(process.cwd(), 'email-templates', 'templates'),
         options: {
             extension: 'ejs'
         }
@@ -28,19 +29,38 @@ const emailTemplates = new EmailTemplates({
             relativeTo: path.join(process.cwd(), 'email-templates', 'css')
         }
     }
-})
+});
 
-class EmailService {
-    sendMail(userMail, action, context) {
+module.exports = {
+    sendMail: async (userMail, action, context) => {
+        const template = htmlTemplates[action];
+        const html = await emailTemplates.render(template.templateFileName, {...context, SITE});
+
         const mailOptions = {
             from: ROOT_EMAIL_LOGIN,
             to: userMail,
-            subject: 'This is a test',
-            html: '<p>This is a test</p>'
-        }
+            subject: template.subject,
+            html
+        };
 
-        return transporter.sendMail(mailOptions)
-    }
-}
+        return mailTransport.sendMail(mailOptions)
+    },
 
-module.exports = new EmailService()
+};
+
+// class EmailService {
+//     async sendMail(userMail, action, context) {
+//         const template = htmlTemplates[action]
+//         const html = await emailTemplates.render(template.templateFileName, {...context})
+//         const mailOptions = {
+//             from: ROOT_EMAIL_LOGIN,
+//             to: userMail,
+//             subject: template.subject,
+//             html: html
+//         }
+//
+//         return transporter.sendMail(mailOptions)
+//     }
+// }
+
+// module.exports = new EmailService()

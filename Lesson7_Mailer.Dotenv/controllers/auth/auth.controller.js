@@ -4,7 +4,7 @@ const {updateUserValidatorSchema} = require("../../validators");
 const {
     requestHeadersEnum: {AUTHORIZATION},
     responseStatusCodesEnum: {BAD_REQUEST, NOT_FOUND: NOT_FOUND_CODE, OK},
-    responseCustomError: {NOT_VALID, NOT_FOUND}
+    responseCustomErrorEnum: {NOT_VALID, NOT_FOUND}
 } = require('../../constants')
 const {tokenGeneratorHelpers, checkHashPasswordHelpers} = require('../../helpers')
 const {ErrorHandler} = require('../../error')

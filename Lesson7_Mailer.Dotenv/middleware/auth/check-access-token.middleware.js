@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const {
     requestHeadersEnum: {AUTHORIZATION},
     responseStatusCodesEnum: {UNAUTHORIZED, BAD_REQUEST},
-    responseCustomError: {NOT_VALID, NOT_VALID_TOKEN}
+    responseCustomErrorEnum: {NOT_VALID, NOT_VALID_TOKEN}
 
 } = require('../../constants');
 
