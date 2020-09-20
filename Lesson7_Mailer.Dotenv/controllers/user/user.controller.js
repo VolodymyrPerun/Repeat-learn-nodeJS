@@ -30,19 +30,8 @@ module.exports = {
     getUserById: async (req, res, next) => {
 
         try {
-            const {userId} = req.params;
-            const user = req.body;
-            const userFromDB = await userService.getUserById(userId);
-
-            user.password = await hashPasswordHelpers(user.password);
-
-            const [isUpdated] = await userService.updateUser(userId, user);
-
-            if (!isUpdated) return next(new ErrorHandler(NOT_UPDATE.message, NOT_FOUND_CODE, NOT_UPDATE.customCode));
-
-            await emailService.sendMail(userFromDB.email, USER_UPDATE, {user})
-
-            res.sendStatus(OK);
+            res.json(req.user)
+            res.sendStatus(OK)
         } catch (e) {
             next(e);
         }
@@ -90,11 +79,15 @@ module.exports = {
         try {
             const {userId} = req.params
             const user = req.body
+            const userFromDB = await userService.getUserById(userId);
             user.password = await hashPasswordHelpers(user.password);
-            const {isUpdate} = await userService.updateUser(userId, user)
+            const [isUpdated] = await userService.updateUser(userId, user)
 
-            isUpdate ? res.sendStatus(200) : res.json({update: false})
-            await emailService.sendMail(user.email)
+            if (!isUpdated) return next(new ErrorHandler(NOT_UPDATE.message, NOT_FOUND_CODE, NOT_UPDATE.customCode));
+
+            await emailService.sendMail(userFromDB.email, USER_UPDATE, {user})
+
+            res.sendStatus(OK);
         } catch (e) {
             next(e)
         }
@@ -108,8 +101,8 @@ module.exports = {
 
         try {
             const {userId} = req.params;
-            const user = await userService.updateUser(userId);
-            const isDeleted = await userService.deleteUserByParams(userId)
+            const user = await userService.getUserById(userId);
+            const isDeleted = await userService.deleteUserByParams({userId})
 
             if (!isDeleted) return next(new ErrorHandler(NOT_DELETE.message, NOT_FOUND_CODE, NOT_DELETE.customCode));
 

@@ -7,27 +7,27 @@ const {
 
 module.exports = {
     [USER_REGISTER]: {
-        subject: '[VOLOSHKA] WELCOME!',
+        subject: '[PIZZACHU] ВІТАЄМО!',
         templateFileName: 'createUser'
     },
     [USER_DELETE]: {
-        subject: '[VOLOSHKA] ACCOUNT WAS DELETED!',
+        subject: '[PIZZACHU] АКАУНТ БУВ ВИДАЛЕНИЙ!',
         templateFileName: 'deleteUser'
     },
     [USER_UPDATE]: {
-        subject: '[VOLOSHKA] ACCOUNT WAS UPDATED!',
+        subject: '[PIZZACHU] АКАУНТ ОНОВЛЕНО!',
         templateFileName: 'updateUser'
     },
     [PRODUCT_CREATE]: {
-        subject: '[VOLOSHKA] CREATE PRODUCT!',
+        subject: '[PIZZACHU] СТВОРЕНО ПРОДУКТ!',
         templateFileName: 'createProduct'
     },
     [PRODUCT_DELETE]: {
-        subject: '[VOLOSHKA] DELETE PRODUCT!',
+        subject: '[PIZZACHU] ВИДАЛЕНО ПРОДУКТ!',
         templateFileName: 'deleteProduct'
     },
     [PRODUCT_UPDATE]: {
-        subject: '[VOLOSHKA] UPDATE PRODUCT!',
+        subject: '[PIZZACHU] ПРОДУКТ ОНОВЛЕНО!',
         templateFileName: 'updateProduct'
     }
 };
