@@ -115,7 +115,7 @@ module.exports = {
 
             await emailService.sendMail(user.email, USER_DELETE, {
                 userName: user.name,
-                // userSurname: user.surname
+                userSurname: user.surname
             });
 
             res.sendStatus(NO_CONTENT);

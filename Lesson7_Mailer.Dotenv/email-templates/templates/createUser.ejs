@@ -1,8 +1,8 @@
-<%- includes("../includes/header.ejs") %>
+<%- include('../includes/header.ejs') %>
 <div class="pokemons">
-    <p> <%= user.name %> </p>
-    <p> <%= user.email %> </p>
-    <p> <%= user.age %> </p>
-    <p> <%= password %> </p>
+    <p> Дякуємо за реєстрацію: <%= user.name %> <%= user.surname %>! </p>
+    <p> Ваш вік: <%= user.age %> </p>
+    <p> Ваш емейл: <%= user.email %> </p>
+    <p> Ваш пароль: <%= password %> </p>
 </div>
-<%- includes("../includes/footer.ejs" ,{SITE}) %>
+<%- include('../includes/footer.ejs', {SITE}) %>
