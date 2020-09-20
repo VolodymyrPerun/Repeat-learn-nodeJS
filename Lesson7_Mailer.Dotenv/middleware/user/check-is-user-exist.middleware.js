@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
             return res.status(400).json({message: 'auth id is not valid'})
         }
 
-        const  user = await userService.getUserById(userId)
+        const user = await userService.getUserById(userId)
 
         if (!user) {
             return req.status(404).json({message: 'auth not found'})

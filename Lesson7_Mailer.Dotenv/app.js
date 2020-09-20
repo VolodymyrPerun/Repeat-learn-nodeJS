@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'static')));
 app.use(morgan('dev'));
 
 app.engine('.hbs', exprsBars({
@@ -24,7 +24,7 @@ app.engine('.hbs', exprsBars({
 }))
 
 app.set('view engine', '.hbs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'static'));
 
 const {authRouter, userRouter, productRouter} = require('./routes')
 

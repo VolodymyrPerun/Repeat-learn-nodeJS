@@ -1,3 +1,40 @@
+
+body {
+    font-family: 'Ubuntu', Arial, sans-serif;
+    /* line-height: 36px; */
+    font-size: 16px;
+    color: #848484;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #222222;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+p {
+    color: #848484;
+}
+
+ul,
+li {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
 .pokemons {
-    color: red;
+    background: gold;
+    color: darkorange;
+    border-top: 10px solid #2ecc71;
+    height: 100%;
+    width: 100%;
 }
