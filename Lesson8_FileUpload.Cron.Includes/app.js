@@ -3,6 +3,7 @@ const morgan = require('morgan')
 
 const express = require('express');
 const exprsBars = require('express-handlebars');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const {PORT} = require('./config')
 const {responseStatusCodesEnum: {SERVER_ERROR}} = require("./constants");
@@ -12,10 +13,13 @@ db.setModels();
 
 const app = express();
 
+app.use(fileUpload({
+
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('dev'));
 
 app.engine('.hbs', exprsBars({
@@ -24,23 +28,16 @@ app.engine('.hbs', exprsBars({
 }))
 
 app.set('view engine', '.hbs');
-app.set('views', path.join(__dirname, 'static'));
+app.set('views', path.join(__dirname, 'public'));
 
 const {authRouter, userRouter, productRouter} = require('./routes')
 
-// app.get('/register', (req, res) => {
-//     res.render('register')
-// })
-//
-// app.get('/login', (req, res) => {
-//     res.render('login')
-// })
 
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 
-app.use('*', (err, req, res, next) => {
+app.use('*', (err, req, res) => {
     res
         .status(err.status || SERVER_ERROR)
         .json({

@@ -1,8 +1,11 @@
 const userRouter = require('express').Router();
 const {
-    checkIsUserExistMiddleware,
-    checkUserValidityMiddleware,
-    checkUserValidityIfUpdateMiddleware
+    userMiddleware:
+        {
+            checkIsUserExistMiddleware,
+            checkUserValidityMiddleware,
+            checkUserValidityIfUpdateMiddleware
+        }
 }
     = require('../../middleware')
 
