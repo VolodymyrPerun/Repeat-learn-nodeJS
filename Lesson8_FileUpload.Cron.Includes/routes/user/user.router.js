@@ -5,6 +5,10 @@ const {
             checkIsUserExistMiddleware,
             checkUserValidityMiddleware,
             checkUserValidityIfUpdateMiddleware
+        },
+    fileMiddleware:
+        {
+            checkFilesMiddleware
         }
 }
     = require('../../middleware')
@@ -21,7 +25,7 @@ const {
 } = require('../../controllers');
 
 
-userRouter.post('/register', checkUserValidityMiddleware, createUser);
+userRouter.post('/register', checkUserValidityMiddleware, checkFilesMiddleware, createUser);
 userRouter.get('/', getUsers)
 userRouter.get('/:userId', checkIsUserExistMiddleware, getUserById)
 userRouter.put('/:userId', checkIsUserExistMiddleware, checkUserValidityIfUpdateMiddleware, updateUser)

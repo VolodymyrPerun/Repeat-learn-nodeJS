@@ -5,8 +5,6 @@ module.exports = {
         message: 'Not valid token',
         customCode: 4011
     },
-
-
     // not found
     NOT_VALID: {
         message: 'Record not valid',
