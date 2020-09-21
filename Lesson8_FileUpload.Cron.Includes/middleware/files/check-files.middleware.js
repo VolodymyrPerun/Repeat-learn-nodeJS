@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
 
             if (size > filesOptionsEnum.MAX_PHOTO_SIZE) {
                 return next(
-                    new ErrorHandler(`Max file size is ${filesOptionsEnum.MAX_PHOTO_SIZE}`, responseStatusCodesEnum.BAD_REQUEST)
+                    new ErrorHandler(`Максимальний розмір файлу - ${filesOptionsEnum.MAX_PHOTO_SIZE}`, responseStatusCodesEnum.BAD_REQUEST)
                 )
             }
 
@@ -28,7 +28,7 @@ module.exports = (req, res, next) => {
         else if (filesOptionsEnum.DOC_MIMETYPES.includes(mimetype)) {
             if (size > filesOptionsEnum.MAX_DOC_SIZE) {
                 return next(
-                    new ErrorHandler(`Max file size is ${filesOptionsEnum.MAX_DOC_SIZE}`, responseStatusCodesEnum.BAD_REQUEST)
+                    new ErrorHandler(`Максимальний розмір файлу - ${filesOptionsEnum.MAX_DOC_SIZE}`, responseStatusCodesEnum.BAD_REQUEST)
                 )
             }
 
