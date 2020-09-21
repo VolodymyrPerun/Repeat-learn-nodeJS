@@ -30,6 +30,7 @@ app.engine('.hbs', exprsBars({
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'public'));
 
+
 const {authRouter, userRouter, productRouter} = require('./routes')
 
 
@@ -64,3 +65,6 @@ process.on('unhandledRejection', (reason, p) => {
 process.on('rejectionHandled', (p) => {
     unhandledRejections.delete(p);
 });
+
+const {cronRun} = require('./cron');
+cronRun();

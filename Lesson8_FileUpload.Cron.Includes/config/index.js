@@ -16,7 +16,10 @@ module.exports = {
     ROOT_EMAIL_LOGIN: process.env.ROOT_EMAIL_LOGIN || 'misterbin700007@gmail.com',
     ROOT_EMAIL_PASSWORD: process.env.ROOT_EMAIL_PASSWORD || '700007misterbin700007',
 
-     SITE: process.env.SITE || 'site.com',
+     SITE: process.env.SITE || 'https://volodymyrperun.github.io/upqode-task-master/',
 
-    FRONT_END_URL: process.env.FRONT_END_URL || 'http://localhost:3000'
+    FRONT_END_URL: process.env.FRONT_END_URL || 'http://localhost:3000',
+
+    CRON_JOB_PERIOD: process.env.CRON_JOB_PERIOD || '0 0 * * *',
+
 }
